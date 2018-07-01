@@ -3,6 +3,9 @@ Estimate parameters of beta distribution with known percentiles
    WPS/PROC R or IML/R
 
    The SAS code(CDF Beta) used to check the WPS result worked in both WPS and SAS
+   
+   Recent addition and related solution using SAS/IML on end
+   Rick Wicklin via listserv.uga.edu
 
 https://tinyurl.com/y7e2byzu
 https://github.com/rogerjdeangelis/utl_estimate_parameters_of_beta_distribution_with_known_percentiles
@@ -234,5 +237,26 @@ run;quit;
 proc print data=check;
 run;quit;
 ');
+
+
+Rick Wicklin via listserv.uga.edu
+6:55 PM (15 hours ago)
+ to SAS-L
+This is sometimes called quantile-matching estimation (QME). Because
+the quantiles involve the cumulative distribution function (CDF), the
+equation does not usually have a closed-form solution, even when the
+number of quantiles matches the number of parameters. In this problem,
+you have more quantiles then parameters. The solution that Roger presents
+(from 'onyambu') is an L1 (leas
+t absolute value) solution, but many researchers prefer an L2 solution,
+which is either least square or weighted least squares.
+
+In SAS you can use PROC NLIN to produce either L2 solution. A discussion
+of the general problem (m quantiles and k parameters, m > k) is discussed
+in the blog post "Fit a distribution from quantiles," where you will also find working SAS code:
+https://blogs.sas.com/content/iml/2018/03/07/fit-distribution-matching-quantile.html
+
+Regards,
+Rick Wicklin
 
 
